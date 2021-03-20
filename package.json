@@ -22,7 +22,11 @@
   },
   "homepage": "https://github.com/Lend-it/Gateway#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "@sentry/node": "^5.30.0",
+    "axios": "^0.19.0",
+    "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
+    "youch": "^2.0.10"
   },
   "devDependencies": {
     "eslint": "^6.5.1",

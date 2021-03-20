@@ -1,10 +1,5 @@
 import express from 'express';
-
-const app = express();
-
-app.get('/', (req, res) => {
-  res.send('yossfe');
-});
+import app from './app.js';
 
 const HOST = 'localhost';
 const PORT = process.env.PORT || 3002;
