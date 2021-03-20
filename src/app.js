@@ -7,13 +7,10 @@ import routes from './routes.js';
 
 class App {
   constructor() {
+    Sentry.init({ dsn: process.env.SENTRY_DSN });
+
     this.server = express();
     this.node_env = process.env.NODE_ENV || 'development';
-
-    Sentry.init({
-      dsn:
-        'https://ac855a133b59484eae32ac5ce34a814c@o336427.ingest.sentry.io/5685201',
-    });
 
     this.middlewares();
     this.routes();
@@ -21,12 +18,18 @@ class App {
   }
 
   middlewares() {
-    this.server.use(Sentry.Handlers.errorHandler());
+    this.catchErrorsSentry();
     this.server.use(express.json());
   }
 
   routes() {
     this.server.use(routes);
+    this.catchErrorsSentry();
+  }
+
+  catchErrorsSentry() {
+    if (!['prod', 'homolog'].includes(this.node_env)) return;
+
     this.server.use(Sentry.Handlers.errorHandler());
   }
 
