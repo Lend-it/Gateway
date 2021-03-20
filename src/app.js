@@ -7,10 +7,10 @@ import routes from './routes.js';
 
 class App {
   constructor() {
-    Sentry.init({ dsn: process.env.SENTRY_DSN });
-
     this.server = express();
     this.node_env = process.env.NODE_ENV || 'development';
+
+    Sentry.init({ dsn: this.isInDeploy() && process.env.SENTRY_DSN });
 
     this.middlewares();
     this.routes();
@@ -27,14 +27,18 @@ class App {
     this.catchErrorsSentry();
   }
 
+  isInDeploy() {
+    return ['prod', 'homolog'].includes(this.node_env);
+  }
+
   catchErrorsSentry() {
-    if (!['prod', 'homolog'].includes(this.node_env)) return;
+    if (!this.isInDeploy()) return;
 
     this.server.use(Sentry.Handlers.errorHandler());
   }
 
   exceptionHandler() {
-    this.server.use(async (err, req, res, next) => {
+    this.server.use(async (err, req, res, _) => {
       if (this.node_env === 'development') {
         const errors = await new Youch(err, req).toJSON();
         return res.status(500).json(errors);
