@@ -12,5 +12,3 @@ services:
       - 3002:3002
       - 9229:9229
     command: /bin/sh -c "npm install && npm run dev"
-    environment:
-      - SENTRY_DSN=https://ac855a133b59484eae32ac5ce34a814c@o336427.ingest.sentry.io/5685201

@@ -3,6 +3,6 @@ import User from './app/microservices/User.js';
 
 const routes = new express.Router();
 
-routes.post('/oi', User.createUser);
+routes.get('/oi', User.createUser);
 
 export default routes;
