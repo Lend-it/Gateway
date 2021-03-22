@@ -1,13 +1,12 @@
-import express from 'express';
+import dotenv from 'dotenv';
 
-const app = express();
+import app from './app.js';
 
-app.get('/', (req, res) => {
-  res.send('yossfe');
-});
+dotenv.config();
 
 const HOST = 'localhost';
 const PORT = process.env.PORT || 3002;
+
 app.listen(PORT);
 
 console.log(`Running at ${HOST}:${PORT}`);
