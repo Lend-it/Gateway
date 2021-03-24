@@ -1,12 +1,11 @@
-class User {
-  constructor() {
-    this.url = process.env.USER_ROUTE;
-  }
+import { basePost } from '../utils/baseRequest.js';
 
-  async createUser(req, res) {
-    console.log(this.url);
-    res.json(true);
-  }
+const url = 'https://lendit-user-hom.herokuapp.com';
+
+async function createUser(req, res) {
+  res.json(await basePost(`${url}/users`, req.body));
 }
 
-export default new User();
+export default {
+  createUser,
+};
