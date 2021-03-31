@@ -5,6 +5,8 @@ import User from './app/microservices/User.js';
 const routes = new express.Router();
 
 routes.post('/users/create-user', User.createUser);
+routes.post('/users/create-session', User.createSession);
+
 routes.post('/request/create-request', Request.createRequest);
 
 export default routes;
