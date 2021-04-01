@@ -6,6 +6,8 @@ const requestRouter = Router();
 
 requestRouter.get('/request', Request.getRequest);
 requestRouter.post('/request', Request.createRequest);
+requestRouter.put('/request/:id', Request.updateRequest);
+requestRouter.delete('/request/:id', Request.deleteRequest);
 
 requestRouter.get('/product-category', Request.getProductCategory);
 requestRouter.post('/product-category', Request.createProductCategory);
