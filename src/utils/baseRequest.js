@@ -15,6 +15,11 @@ export async function basePatch(route, content) {
   return response.data;
 }
 
+export async function basePut(route, content) {
+  const response = await axios.put(route, content);
+  return response.data;
+}
+
 export async function baseDelete(route) {
   const response = await axios.delete(route);
   return response.data;

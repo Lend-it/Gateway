@@ -1,10 +1,11 @@
-import express from 'express';
-import Request from './app/microservices/Request.js';
-import User from './app/microservices/User.js';
+import { Router } from 'express';
 
-const routes = new express.Router();
+import userRouter from './routes/user.routes.js';
+import requestRouter from './routes/request.routes.js';
 
-routes.post('/users/create-user', User.createUser);
-routes.post('/request/create-request', Request.createRequest);
+const routes = Router();
+
+routes.use('/users', userRouter);
+routes.use('/requests', requestRouter);
 
 export default routes;
