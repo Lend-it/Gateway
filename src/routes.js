@@ -9,6 +9,7 @@ routes.post('/users/session', User.createSession);
 
 routes.get('/requests/product-category', Request.getProductCategory);
 routes.post('/requests/product-category', Request.createProductCategory);
+routes.get('/requests/request', Request.getRequest);
 routes.post('/requests/request', Request.createRequest);
 
 export default routes;
