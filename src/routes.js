@@ -7,6 +7,7 @@ const routes = new express.Router();
 routes.post('/users/create-user', User.createUser);
 routes.post('/users/create-session', User.createSession);
 
-routes.post('/request/create-request', Request.createRequest);
+routes.post('/requests/create-request', Request.createRequest);
+routes.get('/requests/product-category', Request.getProductCategory);
 
 export default routes;
