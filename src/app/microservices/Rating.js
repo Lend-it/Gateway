@@ -1,7 +1,5 @@
-class Rating {
-  constructor() {
-    this.url = process.env.RATING_ROUTE;
-  }
-}
+import endpoint from '../utils/endpoint.js';
 
-export default new Rating();
+const { rating } = endpoint[process.env.NODE_ENV] || endpoint.fallback;
+
+export default {};

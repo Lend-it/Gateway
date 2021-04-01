@@ -1,15 +1,14 @@
 import { basePost } from '../utils/baseRequest.js';
+import endpoint from '../utils/endpoint.js';
 
-const url = 'https://lendit-user-hom.herokuapp.com';
+const { user } = endpoint[process.env.NODE_ENV] || endpoint.fallback;
 
 async function createUser(req, res) {
-  const postData = req.body;
-  res.json(await basePost(`${url}/users`, postData));
+  res.json(await basePost(`${user}/users`, req.body));
 }
 
 async function createSession(req, res) {
-  const postData = req.body;
-  res.json(await basePost(`${url}/session`, postData));
+  res.json(await basePost(`${user}/session`, req.body));
 }
 
 export default {
