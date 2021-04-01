@@ -1,15 +1,11 @@
-import express from 'express';
-import Request from './app/microservices/Request.js';
-import User from './app/microservices/User.js';
+import { Router } from 'express';
 
-const routes = new express.Router();
+import userRouter from './routes/user.routes.js';
+import requestRouter from './routes/request.routes.js';
 
-routes.post('/users/user', User.createUser);
-routes.post('/users/session', User.createSession);
+const routes = Router();
 
-routes.get('/requests/product-category', Request.getProductCategory);
-routes.post('/requests/product-category', Request.createProductCategory);
-routes.get('/requests/request', Request.getRequest);
-routes.post('/requests/request', Request.createRequest);
+routes.use('/users', userRouter);
+routes.use('/requests', requestRouter);
 
 export default routes;
