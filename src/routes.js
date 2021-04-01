@@ -4,10 +4,11 @@ import User from './app/microservices/User.js';
 
 const routes = new express.Router();
 
-routes.post('/users/create-user', User.createUser);
-routes.post('/users/create-session', User.createSession);
+routes.post('/users/user', User.createUser);
+routes.post('/users/session', User.createSession);
 
-routes.post('/requests/create-request', Request.createRequest);
 routes.get('/requests/product-category', Request.getProductCategory);
+routes.post('/requests/product-category', Request.createProductCategory);
+routes.post('/requests/request', Request.createRequest);
 
 export default routes;

@@ -3,15 +3,20 @@ import endpoint from '../utils/endpoint.js';
 
 const { request } = endpoint[process.env.NODE_ENV] || endpoint.fallback;
 
-async function createRequest(req, res) {
-  res.json(await basePost(`${request}/requests`, req.body));
-}
-
 async function getProductCategory(req, res) {
   res.json(await baseGet(`${request}/product_category`));
 }
 
+async function createProductCategory(req, res) {
+  res.json(await basePost(`${request}/product_category`, req.body));
+}
+
+async function createRequest(req, res) {
+  res.json(await basePost(`${request}/requests`, req.body));
+}
+
 export default {
-  createRequest,
   getProductCategory,
+  createProductCategory,
+  createRequest,
 };
