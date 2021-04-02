@@ -12,6 +12,10 @@ async function getProductCategory(req, res) {
   res.json(await baseGet(`${request}/product_category`));
 }
 
+async function getFilteredRequest(req, res) {
+  res.json(await baseGet(`${request}/request/${req.params.id}`));
+}
+
 async function createProductCategory(req, res) {
   res.json(await basePost(`${request}/product_category`, req.body));
 }
@@ -39,4 +43,5 @@ export default {
   createRequest,
   updateRequest,
   deleteRequest,
+  getFilteredRequest,
 };
