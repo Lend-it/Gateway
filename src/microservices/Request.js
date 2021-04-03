@@ -27,10 +27,16 @@ async function getRequest(req, res) {
     return request.requester;
   });
 
-  const requestersString = requesters.join(',');
+  const lenders = requests.map(request => {
+    return request.lender;
+  });
+
+  const usersIds = [...lenders, ...requesters];
+
+  const usersIdsString = usersIds.join(',');
 
   const users = await queryGet(`${user}/users`, {
-    requestUsers: requestersString,
+    requestUsers: usersIdsString,
   });
 
   const fixedRequests = requests.map(request => {
