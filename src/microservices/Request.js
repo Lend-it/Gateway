@@ -4,6 +4,7 @@ import {
   basePost,
   baseDelete,
   queryGet,
+  basePatch,
 } from '../utils/baseRequest.js';
 import endpoint from '../utils/endpoint.js';
 
@@ -46,6 +47,18 @@ async function getRequest(req, res) {
   res.status(200).json(fixedRequests);
 }
 
+async function updateLender(req, res) {
+  const id = req.params.id;
+
+  res.json(await basePatch(`${request}/requests/${id}`, req.body));
+}
+
+async function finalizeRequest(req, res) {
+  const id = req.params.id;
+
+  res.json(await basePatch(`${request}/requests/${id}/finalize`, null));
+}
+
 async function createRequest(req, res) {
   res.json(await basePost(`${request}/requests`, req.body));
 }
@@ -65,4 +78,6 @@ export default {
   createRequest,
   updateRequest,
   deleteRequest,
+  updateLender,
+  finalizeRequest
 };
