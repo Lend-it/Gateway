@@ -5,6 +5,13 @@ export async function baseGet(route) {
   return response.data;
 }
 
+export async function queryGet(route, content) {
+  const response = await axios.get(route, {
+    params: content,
+  });
+  return response.data;
+}
+
 export async function basePost(route, content) {
   const response = await axios.post(route, content);
   return response.data;
