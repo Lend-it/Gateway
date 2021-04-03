@@ -3,10 +3,11 @@ import {
   basePut,
   basePost,
   baseDelete,
+  queryGet,
 } from '../utils/baseRequest.js';
 import endpoint from '../utils/endpoint.js';
 
-const { request } = endpoint[process.env.NODE_ENV] || endpoint.fallback;
+const { request, user } = endpoint[process.env.NODE_ENV] || endpoint.fallback;
 
 async function getProductCategory(req, res) {
   res.json(await baseGet(`${request}/product_category`));
@@ -17,7 +18,32 @@ async function createProductCategory(req, res) {
 }
 
 async function getRequest(req, res) {
-  res.json(await baseGet(`${request}/requests`));
+  const response = await baseGet(`${request}/requests`);
+
+  const requests = response.data.requests;
+
+  const requesters = requests.map(request => {
+    return request.requester;
+  });
+
+  const requestersString = requesters.join(',');
+
+  const users = await queryGet(`${user}/users`, {
+    requestUsers: requestersString,
+  });
+
+  const fixedRequests = requests.map(request => {
+    const requester = users.find(user => user.useremail === request.requester);
+    const lender = users.find(user => user.useremail === request.lender);
+
+    return {
+      ...request,
+      lender,
+      requester,
+    };
+  });
+
+  res.status(200).json(fixedRequests);
 }
 
 async function createRequest(req, res) {
