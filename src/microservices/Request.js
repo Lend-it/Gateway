@@ -12,8 +12,8 @@ async function getProductCategory(req, res) {
   res.json(await baseGet(`${request}/product_category`));
 }
 
-async function getFilteredRequest(req, res) {
-  res.json(await baseGet(`${request}/requests/${req.params.id}`));
+async function getFilteredByCategoryRequest(req, res) {
+  res.json(await baseGet(`${request}/requests/${req.params.categoryId}`));
 }
 
 async function createProductCategory(req, res) {
@@ -43,5 +43,5 @@ export default {
   createRequest,
   updateRequest,
   deleteRequest,
-  getFilteredRequest,
+  getFilteredByCategoryRequest,
 };
