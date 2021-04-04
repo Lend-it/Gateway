@@ -14,6 +14,10 @@ async function getProductCategory(req, res) {
   res.json(await baseGet(`${request}/product_category`));
 }
 
+async function getFilteredByCategoryRequest(req, res) {
+  res.json(await baseGet(`${request}/requests/${req.params.categoryId}`));
+}
+
 async function createProductCategory(req, res) {
   res.json(await basePost(`${request}/product_category`, req.body));
 }
@@ -23,23 +27,17 @@ async function getRequest(req, res) {
 
   const requests = response.data.requests;
 
-  const requesters = requests.map(request => {
-    return request.requester;
-  });
-
-  const lenders = requests.map(request => {
-    return request.lender;
-  });
+  const requesters = requests.map(request => request.requester);
+  const lenders = requests.map(request => request.lender);
 
   const usersIds = [...lenders, ...requesters];
-
   const usersIdsString = usersIds.join(',');
 
   const users = await queryGet(`${user}/users`, {
     requestUsers: usersIdsString,
   });
 
-  const fixedRequests = requests.map(request => {
+  const mergedRequest = requests.map(function joinUsersDataToRequest(request) {
     const requester = users.find(user => user.useremail === request.requester);
     const lender = users.find(user => user.useremail === request.lender);
 
@@ -50,7 +48,7 @@ async function getRequest(req, res) {
     };
   });
 
-  res.status(200).json(fixedRequests);
+  res.status(200).json(mergedRequest);
 }
 
 async function updateLender(req, res) {
@@ -80,6 +78,7 @@ async function deleteRequest(req, res) {
 export default {
   getProductCategory,
   createProductCategory,
+  getFilteredByCategoryRequest,
   getRequest,
   createRequest,
   updateRequest,
