@@ -4,6 +4,7 @@ import {
   basePost,
   baseDelete,
   queryGet,
+  basePatch,
 } from '../utils/baseRequest.js';
 import endpoint from '../utils/endpoint.js';
 
@@ -26,17 +27,17 @@ async function getRequest(req, res) {
 
   const requests = response.data.requests;
 
-  const requesters = requests.map(request => {
-    return request.requester;
-  });
+  const requesters = requests.map(request => request.requester);
+  const lenders = requests.map(request => request.lender);
 
-  const requestersString = requesters.join(',');
+  const usersIds = [...lenders, ...requesters];
+  const usersIdsString = usersIds.join(',');
 
   const users = await queryGet(`${user}/users`, {
-    requestUsers: requestersString,
+    requestUsers: usersIdsString,
   });
 
-  const fixedRequests = requests.map(request => {
+  const mergedRequest = requests.map(function joinUsersDataToRequest(request) {
     const requester = users.find(user => user.useremail === request.requester);
     const lender = users.find(user => user.useremail === request.lender);
 
@@ -47,7 +48,19 @@ async function getRequest(req, res) {
     };
   });
 
-  res.status(200).json(fixedRequests);
+  res.status(200).json(mergedRequest);
+}
+
+async function updateLender(req, res) {
+  const id = req.params.id;
+
+  res.json(await basePatch(`${request}/requests/${id}`, req.body));
+}
+
+async function finalizeRequest(req, res) {
+  const id = req.params.id;
+
+  res.json(await basePatch(`${request}/requests/${id}/finalize`, null));
 }
 
 async function createRequest(req, res) {
@@ -65,9 +78,11 @@ async function deleteRequest(req, res) {
 export default {
   getProductCategory,
   createProductCategory,
+  getFilteredByCategoryRequest,
   getRequest,
   createRequest,
   updateRequest,
   deleteRequest,
-  getFilteredByCategoryRequest,
+  updateLender,
+  finalizeRequest,
 };
