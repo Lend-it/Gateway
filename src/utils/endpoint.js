@@ -10,9 +10,9 @@ const endpoint = {
     rating: 'https://lendit-rating-prod.herokuapp.com',
   },
   fallback: {
-    user: 'http://localhost:3001',
-    request: 'http://localhost:5002',
-    rating: 'http://localhost:5001',
+    user: 'http://user:3002',
+    request: 'http://request:5000',
+    rating: 'http://rating:5001',
   },
 };
 
