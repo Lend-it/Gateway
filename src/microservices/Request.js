@@ -15,7 +15,10 @@ async function getProductCategory(req, res) {
 }
 
 async function getFilteredByCategoryRequest(req, res) {
-  res.json(await baseGet(`${request}/requests/${req.params.categoryId}`));
+  const response = await baseGet(
+    `${request}/requests/${req.params.categoryId}`
+  );
+  res.json(response.data.requests);
 }
 
 async function createProductCategory(req, res) {
