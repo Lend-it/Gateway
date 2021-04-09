@@ -18,7 +18,10 @@ async function getFilteredByCategoryRequest(req, res) {
   const response = await baseGet(
     `${request}/requests/${req.params.categoryId}`
   );
-  res.json(response.data.requests);
+  const requests = response.data.requests;
+  const mergedUserWithRequest = await mergeUserDataFromRequest(requests);
+
+  res.json(mergedUserWithRequest);
 }
 
 async function createProductCategory(req, res) {
