@@ -4,6 +4,7 @@ import {
   basePost,
   baseDelete,
   basePatch,
+  queryGet,
 } from '../utils/baseRequest.js';
 import endpoint from '../utils/endpoint.js';
 import { mergeUserDataFromRequest } from '../utils/mergeUser.js';
@@ -29,7 +30,8 @@ async function createProductCategory(req, res) {
 }
 
 async function getRequest(req, res) {
-  const response = await baseGet(`${request}/requests`);
+  const {requester, lender} = req.query;
+  const response = await queryGet(`${request}/requests`, {requester, lender});
   const requests = response.data.requests;
   const mergedUserWithRequest = await mergeUserDataFromRequest(requests);
 
