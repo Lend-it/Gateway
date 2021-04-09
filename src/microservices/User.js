@@ -1,4 +1,9 @@
-import { baseMultiFormPatch, basePatch, basePost, basePut } from '../utils/baseRequest.js';
+import {
+  baseMultiFormPatch,
+  basePatch,
+  basePost,
+  basePut,
+} from '../utils/baseRequest.js';
 import endpoint from '../utils/endpoint.js';
 import FormData from 'form-data';
 import fs from 'fs';
