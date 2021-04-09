@@ -30,8 +30,8 @@ async function createProductCategory(req, res) {
 }
 
 async function getRequest(req, res) {
-  const {requester, lender} = req.query;
-  const response = await queryGet(`${request}/requests`, {requester, lender});
+  const { requester, lender } = req.query;
+  const response = await queryGet(`${request}/requests`, { requester, lender });
   const requests = response.data.requests;
   const mergedUserWithRequest = await mergeUserDataFromRequest(requests);
 
