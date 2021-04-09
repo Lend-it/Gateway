@@ -11,5 +11,6 @@ userRouter.post('/user', User.createUser);
 userRouter.post('/session', User.createSession);
 userRouter.put('/user', User.updateUser);
 userRouter.patch('/user/avatar', upload.single('avatar'), User.updateAvatar);
+userRouter.patch('/user/location', User.updateLocation);
 
 export default userRouter;

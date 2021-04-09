@@ -24,6 +24,10 @@ async function updateAvatar(req, res) {
   res.json(await baseMultiFormPatch(`${user}/users/avatar`, formData));
 }
 
+async function updateLocation(req, res) {
+  res.json(await basePatch(`${user}/users/location`, req.body));
+}
+
 async function createSession(req, res) {
   res.json(await basePost(`${user}/session`, req.body));
 }
@@ -32,5 +36,6 @@ export default {
   createUser,
   createSession,
   updateAvatar,
-  updateUser
+  updateUser,
+  updateLocation
 };
