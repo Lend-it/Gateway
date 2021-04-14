@@ -22,6 +22,13 @@ export async function basePatch(route, content) {
   return response.data;
 }
 
+export async function baseMultiFormPatch(route, content) {
+  const response = await axios.patch(route, content, {
+    headers: content.getHeaders(),
+  });
+  return response.data;
+}
+
 export async function basePut(route, content) {
   const response = await axios.put(route, content);
   return response.data;
