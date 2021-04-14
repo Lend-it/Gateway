@@ -14,8 +14,8 @@ export default {
           const filename = `${fileHash}-${file.originalname}`;
 
           return cb(null, filename);
-        }
-      })
-    }
-  }
-}
+        },
+      }),
+    };
+  },
+};

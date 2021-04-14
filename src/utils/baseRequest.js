@@ -24,9 +24,9 @@ export async function basePatch(route, content) {
 
 export async function baseMultiFormPatch(route, content) {
   const response = await axios.patch(route, content, {
-    headers: content.getHeaders()
-  })
-  return response.data
+    headers: content.getHeaders(),
+  });
+  return response.data;
 }
 
 export async function basePut(route, content) {

@@ -42,5 +42,5 @@ export default {
   createSession,
   updateAvatar,
   updateUser,
-  updateLocation
+  updateLocation,
 };
