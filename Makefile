@@ -13,5 +13,5 @@ run-build:
 down:
 	sudo docker-compose -f docker-compose.dev.yml down
 
-lint: 
-	docker-compose -f docker-compose.dev.yml run user npm run lint
+lint:
+	docker-compose -f docker-compose.dev.yml run gateway-service npm run lint
