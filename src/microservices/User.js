@@ -1,14 +1,17 @@
 import {
+  baseGet,
   baseMultiFormPatch,
   basePatch,
   basePost,
   basePut,
+  queryGet,
 } from '../utils/baseRequest.js';
 import endpoint from '../utils/endpoint.js';
 import FormData from 'form-data';
 import fs from 'fs';
 
-const { user } = endpoint[process.env.NODE_ENV] || endpoint.fallback;
+const { user, rating, request } =
+  endpoint[process.env.NODE_ENV] || endpoint.fallback;
 
 async function createUser(req, res) {
   res.json(await basePost(`${user}/users`, req.body));
@@ -37,10 +40,41 @@ async function createSession(req, res) {
   res.json(await basePost(`${user}/session`, req.body));
 }
 
+async function getUserRequests(req, res) {
+  const { useremail } = req.params;
+  const { data: userRequester } = await queryGet(`${request}/requests`, {
+    requester: useremail,
+  });
+  const { data: userLender } = await queryGet(`${request}/requests`, {
+    lender: useremail,
+  });
+
+  const { data: rates } = await baseGet(`${rating}/rating`);
+
+  const userRequesterRates = userRequester.requests.map(request => {
+    const rate = rates.rates.find(rate => rate.requestid === request.requestid);
+    return {
+      ...request,
+      rate,
+    };
+  });
+
+  const userLenderRates = userLender.requests.map(request => {
+    const rate = rates.rates.find(rate => rate.requestid === request.requestid);
+    return {
+      ...request,
+      rate,
+    };
+  });
+
+  return res.status(200).json({ userRequesterRates, userLenderRates });
+}
+
 export default {
   createUser,
   createSession,
   updateAvatar,
   updateUser,
   updateLocation,
+  getUserRequests,
 };
