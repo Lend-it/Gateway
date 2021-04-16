@@ -9,6 +9,7 @@ import {
 import endpoint from '../utils/endpoint.js';
 import FormData from 'form-data';
 import fs from 'fs';
+import { mergeUserDataFromRequest } from '../utils/mergeUser.js';
 
 const { user, rating, request } =
   endpoint[process.env.NODE_ENV] || endpoint.fallback;
@@ -67,7 +68,16 @@ async function getUserRequests(req, res) {
     };
   });
 
-  return res.status(200).json({ userRequesterRates, userLenderRates });
+  const mergedUserWithRequester = await mergeUserDataFromRequest(
+    userLenderRates
+  );
+  const mergedUserWithLender = await mergeUserDataFromRequest(
+    userRequesterRates
+  );
+
+  return res
+    .status(200)
+    .json({ mergedUserWithRequester, mergedUserWithLender });
 }
 
 export default {
