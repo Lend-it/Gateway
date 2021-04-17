@@ -5,6 +5,10 @@ import Request from '../microservices/Request.js';
 const requestRouter = Router();
 
 requestRouter.get('/request', Request.getRequest);
+requestRouter.get(
+  '/request/available/',
+  Request.getAllAvailableRequestExcludentUser
+);
 requestRouter.get('/request/:categoryId', Request.getFilteredByCategoryRequest);
 requestRouter.post('/request', Request.createRequest);
 requestRouter.put('/request/:id', Request.updateRequest);
