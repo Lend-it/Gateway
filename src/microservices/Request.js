@@ -15,7 +15,18 @@ async function getProductCategory(req, res) {
   res.json(await baseGet(`${request}/product_category`));
 }
 
+async function getAllAvailableRequestExcludentUser(req, res) {
+  const { usermail } = req.query;
+  const response = await queryGet(`${request}/requests/available`, {
+    usermail,
+  });
+  const requests = response.data['available requests'];
+  const mergedUserWithRequest = await mergeUserDataFromRequest(requests);
+  res.json(mergedUserWithRequest);
+}
+
 async function getFilteredByCategoryRequest(req, res) {
+  console.log(req.params.categoryId);
   const response = await baseGet(
     `${request}/requests/${req.params.categoryId}`
   );
@@ -72,4 +83,5 @@ export default {
   deleteRequest,
   updateLender,
   finalizeRequest,
+  getAllAvailableRequestExcludentUser,
 };
