@@ -17,6 +17,13 @@ export async function basePost(route, content) {
   return response.data;
 }
 
+export async function basePostRating(route, body, headers) {
+  const response = await axios.post(route, body, {
+    headers,
+  });
+  return response.data;
+}
+
 export async function basePatch(route, content) {
   const response = await axios.patch(route, content);
   return response.data;
