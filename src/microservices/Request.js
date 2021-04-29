@@ -16,13 +16,16 @@ async function getProductCategory(req, res) {
 }
 
 async function getFilteredByCategoryRequest(req, res) {
-  const response = await baseGet(
-    `${request}/requests/${req.params.categoryId}`
+  const { usermail } = req.query;
+  const response = await queryGet(
+    `${request}/requests/available/${req.params.categoryId}`,
+    {
+      usermail,
+    }
   );
-  const requests = response.data.requests;
+  const { requests } = response.data;
   const mergedUserWithRequest = await mergeUserDataFromRequest(requests);
-
-  res.json(mergedUserWithRequest);
+  res.status(200).json(mergedUserWithRequest);
 }
 
 async function createProductCategory(req, res) {
