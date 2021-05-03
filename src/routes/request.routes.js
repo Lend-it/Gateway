@@ -6,10 +6,9 @@ const requestRouter = Router();
 
 requestRouter.get('/request', Request.getRequest);
 requestRouter.get(
-  '/request/available/',
-  Request.getAllAvailableRequestExcludentUser
+  '/request/available/:categoryId',
+  Request.getFilteredByCategoryRequest
 );
-requestRouter.get('/request/:categoryId', Request.getFilteredByCategoryRequest);
 requestRouter.post('/request', Request.createRequest);
 requestRouter.put('/request/:id', Request.updateRequest);
 requestRouter.delete('/request/:id', Request.deleteRequest);
