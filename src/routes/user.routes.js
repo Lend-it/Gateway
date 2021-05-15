@@ -14,6 +14,6 @@ userRouter.patch('/user/avatar', upload.single('avatar'), User.updateAvatar);
 userRouter.patch('/user/location', User.updateLocation);
 userRouter.get('/user/requests/:useremail', User.getUserRequests);
 userRouter.post('/password/forgot', User.sendMail);
-// userRouter.patch('/password/reset', User.updateAvatar);
+userRouter.patch('/password/reset', User.resetPassword);
 
 export default userRouter;
