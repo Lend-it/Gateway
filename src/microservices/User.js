@@ -18,6 +18,14 @@ async function createUser(req, res) {
   res.json(await basePost(`${user}/users`, req.body));
 }
 
+async function sendMail(req, res) {
+  res.json(await basePost(`${user}/password/forgot`, req.body));
+}
+
+async function resetPassword(req, res) {
+  res.json(await basePatch(`${user}/password/reset`, req.body));
+}
+
 async function updateUser(req, res) {
   res.json(await basePut(`${user}/users`, req.body));
 }
@@ -87,4 +95,6 @@ export default {
   updateUser,
   updateLocation,
   getUserRequests,
+  sendMail,
+  resetPassword,
 };
